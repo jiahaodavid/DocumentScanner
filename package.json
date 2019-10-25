@@ -1014,6 +1014,8 @@
   },
   "devDependencies": {},
   "scripts": {
+    "heroku-prebuild": "npm i -f",
+    "heroku-postbuild": "npm run build",
     "test": "cd frontend && yarn test"
   },
   "repository": {
