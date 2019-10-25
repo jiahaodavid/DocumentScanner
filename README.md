@@ -1,4 +1,5 @@
 # DocumentScanner
+[![Build Status](https://travis-ci.org/CSC59939/DocumentScanner.svg?branch=master)](https://travis-ci.org/CSC59939/DocumentScanner)
 DocumentScanner will allow users to scan a page (and eventually an entire document) to search for a specific keyword and will highlight the context where that keyword is being mentioned. 
 
 
