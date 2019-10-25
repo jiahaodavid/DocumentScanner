@@ -3,7 +3,7 @@
 
   ],
   "buildpacks": [
-    {"url": "heroku/npm"},
+    {"url": "heroku/nodejs"},
     {"url": "heroku/python"}
   ],
   "env": {
