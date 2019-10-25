@@ -1,9 +1,13 @@
-import flask
-
-app = flask.Flask("__main__")\
+from flask import Flask
+app = Flask(__name__)
 
 @app.route("/")
-def my_index():
-    return flask.render_template("index.html", token="Boilerplate code")
+def index():
+    return "Index!"
 
-app.run(debug=True)
+@app.route("/hello")
+def hello():
+    return "Hello World!"
+
+if __name__ == "__main__":
+    app.run()
