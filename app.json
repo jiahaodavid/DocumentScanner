@@ -11,6 +11,7 @@
   },
   "name": "DocumentScanner",
   "scripts": {
+    "setup": "npm run setup"
   },
   "stack": "heroku-18"
 }
