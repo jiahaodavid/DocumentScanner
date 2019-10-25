@@ -1,0 +1,12 @@
+language: python
+
+python:
+  - 3.6.1
+
+install:
+  - pip install -r backend/requirements.txt
+  - nvm install 9.2.0
+  - npm run setup
+
+script:
+  - npm run test
