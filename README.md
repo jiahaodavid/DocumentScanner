@@ -5,5 +5,5 @@ DocumentScanner will allow users to scan a page (and eventually an entire docume
 ### Environment Setup:
 1. Clone repo
 1. Install `python3` and `npm`
-    1. Install `virtualenv`
+    1. Run/install virtualenv `pip install virtualenv`
 1. Run `npm run setup_backend && npm run setup_frontend`
