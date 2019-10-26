@@ -1,9 +1,3 @@
-## Environment Setup:
-1. Clone repo
-2. Install `python3` and `npm`
-3. Run/install virtualenv `pip install virtualenv`
-4. Run `npm run setup_backend && npm run setup_frontend`
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
