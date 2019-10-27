@@ -1018,7 +1018,7 @@
     "heroku-postbuild": "npm run build",
     "test": "cd frontend && yarn test",
     "setup": "pip install -r backend/requirements.txt && cd frontend && npm install --no-optional",
-    "setup_backend": "cd backend && pip install -r requirements.txt && python3 -m venv venv && source venv/bin/activate && pip install gunicorn flask && gunicorn --bind 0.0.0.0:5000 main:app",
+    "setup_backend": "cd backend && pip install -r requirements.txt && source venv/bin/activate && gunicorn --bind 0.0.0.0:5000 main:app",
     "setup_frontend": "cd frontend && npm install --no-optional && yarn start"
   },
   "repository": {
