@@ -1,0 +1,16 @@
+.Dropcontainer {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.DropArea {
+    border: 2px solid black;
+}
+
+.AddFileImg {
+    margin-right: 5px;
+}
+
+.DropArea h3 {
+    font-size: 20px;
+}
