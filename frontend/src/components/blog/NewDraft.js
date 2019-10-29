@@ -86,13 +86,6 @@ class NewDraft extends Component {
             <FormGroup>
               <FormInput placeholder="Keyword to search" value={this.state.value} onChange={this.handleChange}/>
             </FormGroup>
-
-            {/* Create Draft */}
-            <FormGroup className="mb-0">
-              <Button theme="accent" type="submit">
-                Highlight keywords
-              </Button>
-            </FormGroup>
           </Form>
         </CardBody>
         <Highlighter
