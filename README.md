@@ -1,10 +1,6 @@
 # DocumentScanner
 DocumentScanner will allow users to scan a page (and eventually an entire document) to search for a specific keyword and will highlight the context where that keyword is being mentioned. 
 
-
-Iteration 1.0(10/30/19):
-
-
 ### Setting up your local environment:
 1. Install python3, npm, and git
 1. `git clone https://github.com/CSC59939/DocumentScanner.git`
