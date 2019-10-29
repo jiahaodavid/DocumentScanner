@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { Component } from "react";
+import Highlighter from "react-highlight-words";
 import {
   Card,
   CardHeader,
@@ -9,44 +9,70 @@ import {
   FormInput,
   Button
 } from "shards-react";
-import DropZone from "./DropZone";
+import axios from 'axios';
+class NewDraft extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: '', text: ''};
+    this.fileInput = React.createRef();
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
 
-const NewDraft = ({ title }) => (
-  <Card small className="h-100">
-    {/* Card Header */}
-    <CardHeader className="border-bottom">
-      <h6 className="m-0">{title}</h6>
-    </CardHeader>
+  handleSubmit(event) {
+    event.preventDefault();
+    var formData = new FormData();
+    var img = this.fileInput.current.files[0];
+    console.log(img);
+    formData.append("file", img);
+    axios.post('http://localhost:5000/scanner', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((resp)=> {
+      this.setState({text: resp.data.msg});
+      console.log(resp.data.msg);
+      console.log(typeof(img))
+      
+    })
+    .catch((err)=>console.log(err.msg))
+  }
 
-    <DropZone />
+  render() {
+    return (
+      <Card small className="h-100">
 
-    <CardBody className="d-flex flex-column">
-      <Form className="quick-post-form">
-        {/* Title */}
-        <FormGroup>
-          <FormInput placeholder="Keyword to search" />
-        </FormGroup>
+        <input type="file" ref={this.fileInput}/>
 
-        {/* Create Draft */}
-        <FormGroup className="mb-0">
-          <Button theme="accent" type="submit">
-            Highlight keywords
-          </Button>
-        </FormGroup>
-      </Form>
-    </CardBody>
-  </Card>
-);
+        <CardBody className="d-flex flex-column">
+          <Form className="quick-post-form" onSubmit={this.handleSubmit}>
+            {/* Title */}
+            <FormGroup>
+              <FormInput placeholder="Keyword to search" value={this.state.value} onChange={this.handleChange}/>
+            </FormGroup>
 
-NewDraft.propTypes = {
-  /**
-   * The component's title.
-   */
-  title: PropTypes.string
-};
+            {/* Create Draft */}
+            <FormGroup className="mb-0">
+              <Button theme="accent" type="submit">
+                Highlight keywords
+              </Button>
+            </FormGroup>
+          </Form>
+        </CardBody>
+        <Highlighter
+          highlightClassName="YourHighlightClass"
+          searchWords={this.state.value.split(" ")}
+          autoEscape={true}
+          textToHighlight={this.state.text}
+        />
+      </Card>
 
-NewDraft.defaultProps = {
-  title: "New Search"
-};
-
+      
+    );
+  }
+}
 export default NewDraft;

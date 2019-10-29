@@ -7,16 +7,7 @@ const DropZone = () => {
   const maxSize = 5242880;
 
   const onDrop = useCallback(acceptedFiles => {
-    var formData = new FormData();
-    var img = acceptedFiles[0];
     console.log(acceptedFiles);
-    formData.append("file", img);
-    axios.post('http://localhost:5000/scanner', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then((resp)=> {console.log(resp.data.msg)})
-    .catch((err)=>console.log(err.msg))
   }, []);
 
   const {

@@ -8,7 +8,7 @@ import NewDraft from "./../components/blog/NewDraft";
 const BlogOverview = ({ smallStats }) => ( 
     <Container fluid className = "main-content-container px-4" > { /* Page Header */ } 
     <Row noGutters className = "page-header py-4" >
-    <PageTitle title = "New Search"
+    <PageTitle title = "New Scan"
     subtitle = ""
     className = "text-sm-left mb-3" />
     </Row>
