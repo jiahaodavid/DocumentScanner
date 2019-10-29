@@ -14,10 +14,12 @@ const BlogOverview = ({ smallStats }) => (
     </Row>
 
     { /* New Draft */ } 
-    <Col lg = "4"
-    md = "6"
-    sm = "12"
-    className = "mb-4" >
+    <Col 
+    // lg = "4"
+    // md = "6"
+    // sm = "12"
+    // className = "mb-4" 
+    >
     <NewDraft />
     </Col>
 
