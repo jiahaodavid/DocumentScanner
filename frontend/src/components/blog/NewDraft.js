@@ -6,20 +6,23 @@ import {
   Form,
   FormGroup,
   FormInput,
-  Button
+  Button,
+  Alert
 } from "shards-react";
-import axios from 'axios';
-import Loader from 'react-loader-spinner';
+import axios from "axios";
+import Loader from "react-loader-spinner";
 
 class NewDraft extends Component {
   constructor(props) {
     super(props);
+    this.dismiss = this.dismiss.bind(this);
     this.state = {
-      value: '', 
-      text: '',
+      value: "",
+      text: "",
       loading: false,
       stored: false,
-      name_of_file: 'Choose File'
+      name_of_file: "Choose File",
+      isShowingAlert: false
     };
     this.fileInput = React.createRef();
     this.handleChange = this.handleChange.bind(this);
@@ -31,12 +34,14 @@ class NewDraft extends Component {
     event.preventDefault();
     this.setState({
       name_of_file: this.fileInput.current.files[0].name,
-      stored: true,
+      stored: true
     });
   }
-  
+
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({
+      value: event.target.value
+    });
   }
 
   handleSubmit(event) {
@@ -44,58 +49,103 @@ class NewDraft extends Component {
     var formData = new FormData();
     var img = this.fileInput.current.files[0];
     formData.append("file", img);
-    this.setState({loading: true});
-    axios.post('http://localhost:5000/scanner', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then((resp)=> {
-      this.setState({text: resp.data.msg});
-      console.log(resp.data.msg);
-      console.log(typeof(img));
-      this.setState({loading: false});      
-    })
-    .catch((err)=>{
-      console.log(err); 
-      this.setState({loading: false});
-    })
+    this.setState({
+      loading: true
+    });
+    axios
+      .post("http://localhost:5000/scanner", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(resp => {
+        this.setState({
+          text: resp.data.msg
+        });
+        console.log(resp.data.msg);
+        console.log(typeof img);
+        this.setState({
+          loading: false
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({
+          loading: false
+        });
+        this.setState({ isShowingAlert: true });
+      });
+  }
+
+  dismiss() {
+    this.setState({ isShowingAlert: false });
   }
 
   render() {
-    let {loading, stored, name_of_file} = this.state;
+    let { loading, stored, name_of_file } = this.state;
     return (
       <Card>
-        <div style={{margin: "2em", display: "flex", alignItems: "center", justifyContent: "center"}}>
+        <div
+          style={{
+            margin: "2em",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
           <div class="input-group">
             <div class="custom-file">
-              <input type="file" class="custom-file-input" id="inputGroupFile01" ref={this.fileInput} onChange={this.handleChangeFile}/>
-              <label class="custom-file-label" for="inputGroupFile01">{name_of_file}</label>
-            </div>
-          </div>
-          <Button disabled={!stored} onClick={this.handleSubmit}>Submit</Button>
+              <input
+                type="file"
+                class="custom-file-input"
+                id="inputGroupFile01"
+                ref={this.fileInput}
+                onChange={this.handleChangeFile}
+              />{" "}
+              <label class="custom-file-label" for="inputGroupFile01">
+                {" "}
+                {name_of_file}{" "}
+              </label>{" "}
+            </div>{" "}
+          </div>{" "}
+          <Button disabled={!stored} onClick={this.handleSubmit}>
+            {" "}
+            Submit{" "}
+          </Button>{" "}
         </div>
-
-        {loading && <Loader
-          style={{
-            justifyContent: "center",
-            display: "flex"
-          }}
-          type="ThreeDots"
-          color="#00BFFF"
-          height={50}
-          width={50}
-          // timeout={3000}
-        />}
-
+        {loading && (
+          <Loader
+            style={{
+              justifyContent: "center",
+              display: "flex"
+            }}
+            type="ThreeDots"
+            color="#00BFFF"
+            height={50}
+            width={50}
+            // timeout={3000}
+          />
+        )}
         <CardBody className="d-flex flex-row">
           <Form className="quick-post-form" onSubmit={this.handleSubmit}>
-            {/* Title */}
+            {" "}
+            {/* Title */}{" "}
             <FormGroup>
-              <FormInput placeholder="Keyword to search" value={this.state.value} onChange={this.handleChange}/>
-            </FormGroup>
-          </Form>
-        </CardBody>
-        <div style={{display: "flex", justifyContent: "center", margin: "4em"}}>
+              <FormInput
+                placeholder="Keyword to search"
+                value={this.state.value}
+                onChange={this.handleChange}
+              />{" "}
+            </FormGroup>{" "}
+          </Form>{" "}
+        </CardBody>{" "}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            margin: "4em"
+          }}
+        >
           <Highlighter
             style={{
               whiteSpace: "pre-wrap",
@@ -105,12 +155,12 @@ class NewDraft extends Component {
             searchWords={this.state.value.split(" ")}
             autoEscape={true}
             textToHighlight={this.state.text}
-          />
+          />{" "}
         </div>
-        
+        <Alert dismissible={this.dismiss} open={this.state.isShowingAlert}>
+          File uploaded fail.{" "}
+        </Alert>
       </Card>
-
-      
     );
   }
 }
