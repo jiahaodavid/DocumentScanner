@@ -17,11 +17,22 @@ class NewDraft extends Component {
     this.state = {
       value: '', 
       text: '',
-      loading: false
+      loading: false,
+      stored: false,
+      name_of_file: 'Choose File'
     };
     this.fileInput = React.createRef();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChangeFile = this.handleChangeFile.bind(this);
+  }
+
+  handleChangeFile(event) {
+    event.preventDefault();
+    this.setState({
+      name_of_file: this.fileInput.current.files[0].name,
+      stored: true,
+    });
   }
   
   handleChange(event) {
@@ -32,10 +43,8 @@ class NewDraft extends Component {
     event.preventDefault();
     var formData = new FormData();
     var img = this.fileInput.current.files[0];
-    console.log(img);
     formData.append("file", img);
     this.setState({loading: true});
-    console.log("loading")
     axios.post('http://localhost:5000/scanner', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -43,29 +52,27 @@ class NewDraft extends Component {
     }).then((resp)=> {
       this.setState({text: resp.data.msg});
       console.log(resp.data.msg);
-      console.log(typeof(img))
-      this.setState({loading: false});
-      
+      console.log(typeof(img));
+      this.setState({loading: false});      
     })
-    .catch((err)=>console.log(err.msg))
-    console.log("response")
+    .catch((err)=>{
+      console.log(err); 
+      this.setState({loading: false});
+    })
   }
 
   render() {
-    let {loading} = this.state;
+    let {loading, stored, name_of_file} = this.state;
     return (
       <Card>
         <div style={{margin: "2em", display: "flex", alignItems: "center", justifyContent: "center"}}>
           <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-            </div>
             <div class="custom-file">
-              <input type="file" class="custom-file-input" id="inputGroupFile01" ref={this.fileInput}/>
-              <label class="custom-file-label" for="inputGroupFile01">Choose File</label>
+              <input type="file" class="custom-file-input" id="inputGroupFile01" ref={this.fileInput} onChange={this.handleChangeFile}/>
+              <label class="custom-file-label" for="inputGroupFile01">{name_of_file}</label>
             </div>
           </div>
-          <Button onClick={this.handleSubmit}>Submit</Button>
+          <Button disabled={!stored} onClick={this.handleSubmit}>Submit</Button>
         </div>
 
         {loading && <Loader
@@ -88,12 +95,19 @@ class NewDraft extends Component {
             </FormGroup>
           </Form>
         </CardBody>
-        <Highlighter
-          highlightClassName="YourHighlightClass"
-          searchWords={this.state.value.split(" ")}
-          autoEscape={true}
-          textToHighlight={this.state.text}
-        />
+        <div style={{display: "flex", justifyContent: "center", margin: "4em"}}>
+          <Highlighter
+            style={{
+              whiteSpace: "pre-wrap",
+              borderStyle: "rounded"
+            }}
+            highlightClassName="YourHighlightClass"
+            searchWords={this.state.value.split(" ")}
+            autoEscape={true}
+            textToHighlight={this.state.text}
+          />
+        </div>
+        
       </Card>
 
       
