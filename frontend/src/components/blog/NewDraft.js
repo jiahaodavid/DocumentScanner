@@ -67,9 +67,6 @@ class NewDraft extends Component {
       <Card>
         <div style={{margin: "2em", display: "flex", alignItems: "center", justifyContent: "center"}}>
           <div class="input-group">
-            <div class="input-group-prepend">
-              <Button disabled={!stored} onClick={this.handleSubmit}>Upload</Button>
-            </div>
             <div class="custom-file">
               <input type="file" class="custom-file-input" id="inputGroupFile01" ref={this.fileInput} onChange={this.handleChangeFile}/>
               <label class="custom-file-label" for="inputGroupFile01">{name_of_file}</label>
