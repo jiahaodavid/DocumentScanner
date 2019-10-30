@@ -8,7 +8,7 @@ DocumentScanner will allow users to scan a page (and eventually an entire docume
 1. `npm run setup`
 
 ### Starting a new feature:
-1. `git checkout master`
+1. `git checkout develop`
 1. `git pull`
 1. `git checkout -b <feature_name>`
 1. Make your changes
