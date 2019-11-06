@@ -101,17 +101,15 @@ class NewDraft extends Component {
                 id="inputGroupFile01"
                 ref={this.fileInput}
                 onChange={this.handleChangeFile}
-              />{" "}
+              />
               <label class="custom-file-label" for="inputGroupFile01">
-                {" "}
-                {name_of_file}{" "}
-              </label>{" "}
-            </div>{" "}
-          </div>{" "}
+                {name_of_file}
+              </label>
+            </div>
+          </div>
           <Button disabled={!stored} onClick={this.handleSubmit}>
-            {" "}
-            Submit{" "}
-          </Button>{" "}
+            Submit
+          </Button>
         </div>
         {loading && (
           <Loader
@@ -128,17 +126,16 @@ class NewDraft extends Component {
         )}
         <CardBody className="d-flex flex-row">
           <Form className="quick-post-form" onSubmit={this.handleSubmit}>
-            {" "}
-            {/* Title */}{" "}
+            {/* Title */}
             <FormGroup>
               <FormInput
                 placeholder="Keyword to search"
                 value={this.state.value}
                 onChange={this.handleChange}
-              />{" "}
-            </FormGroup>{" "}
-          </Form>{" "}
-        </CardBody>{" "}
+              />
+            </FormGroup>
+          </Form>
+        </CardBody>
         <div
           style={{
             display: "flex",
@@ -155,10 +152,10 @@ class NewDraft extends Component {
             searchWords={this.state.value.split(" ")}
             autoEscape={true}
             textToHighlight={this.state.text}
-          />{" "}
+          />
         </div>
         <Alert dismissible={this.dismiss} open={this.state.isShowingAlert}>
-          File uploaded fail.{" "}
+          File uploaded fail.
         </Alert>
       </Card>
     );
