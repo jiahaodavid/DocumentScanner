@@ -1,27 +1,37 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import {
+    Redirect
+} from "react-router-dom";
 
 // Layout Types
-import { DefaultLayout } from "./layouts";
+import {
+    DefaultLayout
+} from "./layouts";
 
 // Route Views
 import BlogOverview from "./views/BlogOverview";
-import BlogPosts from "./views/BlogPosts";
+import PreviousDocuments from "./views/PreviousDocuments";
+import CheckDocument from "./views/CheckDocument"
 
 export default [{
         path: "/",
         exact: true,
         layout: DefaultLayout,
-        component: () => < Redirect to = "/blog-overview" / >
+        component: () => < Redirect to = "/Documents-overview" / >
     },
     {
-        path: "/blog-overview",
+        path: "/Documents-overview",
         layout: DefaultLayout,
         component: BlogOverview
     },
     {
-        path: "/blog-posts",
+        path: "/previous-documents",
         layout: DefaultLayout,
-        component: BlogPosts
+        component: PreviousDocuments
     },
+    {
+        path: "/previous-documents/document",
+        layout: DefaultLayout,
+        component: CheckDocument
+    }
 ];

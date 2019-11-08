@@ -1,14 +1,14 @@
-export default function() {
+export default function () {
     return [{
             title: "New Search",
-            to: "/blog-overview",
+            to: "/documents-overview",
             htmlBefore: '<i class="material-icons">edit</i>',
             htmlAfter: ""
         },
         {
             title: "Previous Docs",
             htmlBefore: '<i class="material-icons">vertical_split</i>',
-            to: "/blog-posts",
+            to: "/previous-documents",
         },
 
     ];
